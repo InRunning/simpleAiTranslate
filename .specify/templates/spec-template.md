@@ -51,6 +51,7 @@ When creating this spec from a user prompt:
    - Security/compliance needs
    - Privacy implications and data handling
    - Multi-provider support requirements
+   - Custom prompt requirements and validation rules
    - Extension-specific constraints (Manifest V3, content scripts)
 
 ---

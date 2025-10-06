@@ -1,8 +1,9 @@
 <!--
 Sync Impact Report:
-- Version change: null → 1.0.0
+- Version change: null → 1.0.1
 - List of modified principles: N/A (initial creation)
 - Added sections: Core Principles, Technical Constraints, Development Workflow, Governance
+- Added principles: III. Custom Prompt Flexibility (based on README.md requirements)
 - Removed sections: N/A
 - Templates requiring updates:
   ✅ plan-template.md (Constitution Check section)
@@ -19,15 +20,18 @@ Sync Impact Report:
 All user text data MUST be processed with maximum privacy protection. Text selections MUST NOT be stored permanently without explicit user consent. API keys and authentication credentials MUST be stored locally using Chrome's secure storage mechanisms. Users MUST have full control over their data and can clear it at any time.
 
 ### II. Multi-AI Provider Support
-The extension MUST support multiple AI providers (OpenAI, Gemini, Claude, and custom providers). Each provider implementation MUST be modular and interchangeable. Provider configurations MUST be stored independently to allow users to switch between providers without losing settings. The API interface MUST be standardized across all providers.
+The extension MUST support multiple AI providers (OpenAI, Gemini, Claude, and custom providers). Each provider implementation MUST be modular and interchangeable. Provider configurations MUST be stored independently to allow users to switch between providers without losing settings. The API interface MUST be standardized across all providers. Support for custom AI base URLs, API keys, and models MUST be provided.
 
-### III. Extensibility Design
+### III. Custom Prompt Flexibility
+Users MUST be able to supply custom prompts for translation requests. The system MUST support different prompt templates for single word vs sentence translation contexts. Custom prompts MUST be validated for compatibility with different AI providers. Prompt templates MUST support variable substitution for context, word position, and surrounding text.
+
+### IV. Extensibility Design
 New AI providers MUST be addable without modifying core functionality. The architecture MUST follow plugin pattern where providers implement a common interface. UI components MUST be reusable across different provider implementations. Configuration system MUST be dynamic to accommodate new provider settings without code changes.
 
-### IV. Test-Driven Development (NON-NEGOTIABLE)
+### V. Test-Driven Development (NON-NEGOTIABLE)
 TDD is mandatory: Tests MUST be written before implementation. All provider implementations MUST have corresponding unit tests. Integration tests MUST cover end-to-end translation workflows. UI components MUST have automated interaction tests. Red-Green-Refactor cycle MUST be strictly enforced for all features.
 
-### V. Contextual Translation Intelligence
+### VI. Contextual Translation Intelligence
 Single word translations MUST include surrounding context (sentence/paragraph). Word position and context MUST be provided to AI for accurate meaning determination. IPA pronunciation MUST be included for single word translations. Multiple AI results MUST be displayed side-by-side for comparison when enabled.
 
 ## Technical Constraints
@@ -56,4 +60,4 @@ Semantic versioning MUST be followed (MAJOR.MINOR.PATCH). Changelog MUST include
 
 This Constitution supersedes all other project practices and guidelines. Amendments MUST be documented with clear rationale and impact assessment. All pull requests MUST verify compliance with constitutional principles. Complexity deviations MUST be explicitly justified and documented. Use README.md and docs/ for runtime development guidance.
 
-**Version**: 1.0.0 | **Ratified**: 2025-10-06 | **Last Amended**: 2025-10-06
+**Version**: 1.0.1 | **Ratified**: 2025-10-06 | **Last Amended**: 2025-10-06

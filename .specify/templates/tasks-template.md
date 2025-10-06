@@ -55,52 +55,63 @@
 - [ ] T007 [P] Content script isolation test in tests/integration/test_content_script_isolation.js
 - [ ] T008 [P] API key storage test in tests/unit/test_api_key_storage.js
 - [ ] T009 [P] Multi-provider switching test in tests/integration/test_provider_switching.js
+- [ ] T010 [P] Custom prompt validation test in tests/unit/test_custom_prompt_validation.js
+- [ ] T011 [P] Prompt template variable substitution test in tests/unit/test_prompt_substitution.js
 
 ## Phase 3.3: Core Implementation (ONLY after tests are failing)
-- [ ] T010 [P] Provider interface base class in src/providers/base_provider.js
-- [ ] T011 [P] OpenAI provider implementation in src/providers/openai_provider.js
-- [ ] T012 [P] Gemini provider implementation in src/providers/gemini_provider.js
-- [ ] T013 [P] Claude provider implementation in src/providers/claude_provider.js
-- [ ] T014 [P] Custom provider configuration in src/providers/custom_provider.js
-- [ ] T015 [P] Secure API key storage in src/storage/api_key_storage.js
-- [ ] T016 [P] Translation context manager in src/context/translation_context.js
-- [ ] T017 [P] Content script manager in src/content/content_manager.js
-- [ ] T018 [P] Background service worker in src/background/service_worker.js
-- [ ] T019 [P] UI components for provider selection in src/ui/provider_selection.js
-- [ ] T020 [P] Translation result display in src/ui/result_display.js
+- [ ] T012 [P] Provider interface base class in src/providers/base_provider.js
+- [ ] T013 [P] OpenAI provider implementation in src/providers/openai_provider.js
+- [ ] T014 [P] Gemini provider implementation in src/providers/gemini_provider.js
+- [ ] T015 [P] Claude provider implementation in src/providers/claude_provider.js
+- [ ] T016 [P] Custom provider configuration in src/providers/custom_provider.js
+- [ ] T017 [P] Secure API key storage in src/storage/api_key_storage.js
+- [ ] T018 [P] Custom prompt manager in src/prompts/prompt_manager.js
+- [ ] T019 [P] Prompt template engine in src/prompts/template_engine.js
+- [ ] T020 [P] Translation context manager in src/context/translation_context.js
+- [ ] T021 [P] Content script manager in src/content/content_manager.js
+- [ ] T022 [P] Background service worker in src/background/service_worker.js
+- [ ] T023 [P] UI components for provider selection in src/ui/provider_selection.js
+- [ ] T024 [P] UI components for custom prompt configuration in src/ui/prompt_configuration.js
+- [ ] T025 [P] Translation result display in src/ui/result_display.js
 
 ## Phase 3.4: Integration
-- [ ] T021 Connect providers to UI components
-- [ ] T022 Implement content script to background communication
-- [ ] T023 Add translation request queuing and caching
-- [ ] T024 Implement privacy controls and data clearing
-- [ ] T025 Add performance monitoring and optimization
+- [ ] T026 Connect providers to UI components
+- [ ] T027 Implement content script to background communication
+- [ ] T028 Add translation request queuing and caching
+- [ ] T029 Integrate custom prompts with translation workflow
+- [ ] T030 Implement privacy controls and data clearing
+- [ ] T031 Add performance monitoring and optimization
 
 ## Phase 3.5: Polish
-- [ ] T026 [P] Unit tests for all providers in tests/unit/test_providers.js
-- [ ] T027 Performance tests (<5s translation, <500ms startup)
-- [ ] T028 [P] Update docs/extension_usage.md
-- [ ] T029 Privacy audit and security review
-- [ ] T030 Chrome Web Store preparation and validation
+- [ ] T032 [P] Unit tests for all providers in tests/unit/test_providers.js
+- [ ] T033 [P] Unit tests for custom prompt system in tests/unit/test_prompt_system.js
+- [ ] T034 Performance tests (<5s translation, <500ms startup)
+- [ ] T035 [P] Update docs/extension_usage.md
+- [ ] T036 [P] Update docs/custom_prompt_guide.md
+- [ ] T037 Privacy audit and security review
+- [ ] T038 Chrome Web Store preparation and validation
 
 ## Dependencies
-- Tests (T004-T009) before implementation (T010-T020)
-- T010 blocks T011-T014
-- T015 blocks T016-T018
-- T016 blocks T021
-- T017 blocks T022
-- Implementation before integration (T021-T025)
-- Integration before polish (T026-T030)
+- Tests (T004-T011) before implementation (T012-T025)
+- T012 blocks T013-T016
+- T017 blocks T018-T020
+- T018 blocks T019
+- T019 blocks T021
+- T021 blocks T022
+- Implementation before integration (T026-T031)
+- Integration before polish (T032-T038)
 
 ## Parallel Example
 ```
-# Launch T004-T009 together:
+# Launch T004-T011 together:
 Task: "Privacy compliance test in tests/contract/test_privacy_compliance.js"
 Task: "Provider interface test in tests/contract/test_provider_interface.js"
 Task: "Translation workflow test in tests/integration/test_translation_workflow.js"
 Task: "Content script isolation test in tests/integration/test_content_script_isolation.js"
 Task: "API key storage test in tests/unit/test_api_key_storage.js"
 Task: "Multi-provider switching test in tests/integration/test_provider_switching.js"
+Task: "Custom prompt validation test in tests/unit/test_custom_prompt_validation.js"
+Task: "Prompt template variable substitution test in tests/unit/test_prompt_substitution.js"
 ```
 
 ## Notes
@@ -120,18 +131,23 @@ Task: "Multi-provider switching test in tests/integration/test_provider_switchin
    - Each AI provider → provider implementation task [P]
    - Provider interface → interface contract test [P]
    
-3. **From User Stories**:
+3. **From Custom Prompt Requirements**:
+   - Custom prompt validation → prompt validation test [P]
+   - Prompt template engine → template substitution test [P]
+   - User prompt configuration → UI configuration task
+   
+4. **From User Stories**:
    - Each translation workflow → integration test [P]
    - UI interaction → component test [P]
    - Quickstart scenarios → validation tasks
 
-4. **From Extension Constraints**:
+5. **From Extension Constraints**:
    - Manifest V3 requirement → service worker task
    - Content script isolation → isolation test [P]
    - Performance requirement → performance test
 
-5. **Ordering**:
-   - Setup → Privacy Tests → Provider Tests → Integration Tests → Provider Implementation → Integration → Polish
+6. **Ordering**:
+   - Setup → Privacy Tests → Provider Tests → Prompt Tests → Integration Tests → Provider Implementation → Prompt Implementation → Integration → Polish
    - Dependencies block parallel execution
    - Tests MUST precede implementation (TDD principle)
 
@@ -140,6 +156,7 @@ Task: "Multi-provider switching test in tests/integration/test_provider_switchin
 
 - [ ] All privacy requirements have compliance tests
 - [ ] All providers have interface tests and implementation tasks
+- [ ] All custom prompt requirements have validation tests
 - [ ] All tests come before implementation (TDD compliance)
 - [ ] Parallel tasks truly independent
 - [ ] Each task specifies exact file path
@@ -147,3 +164,4 @@ Task: "Multi-provider switching test in tests/integration/test_provider_switchin
 - [ ] Extension-specific constraints addressed (Manifest V3, content scripts)
 - [ ] Performance requirements included in test tasks
 - [ ] Security requirements have corresponding test tasks
+- [ ] Custom prompt system has both unit and integration tests

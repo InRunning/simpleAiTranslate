@@ -56,6 +56,13 @@
 - [ ] Provider implementation follows modular interface
 - [ ] Standardized API across all providers
 - [ ] Independent provider configurations
+- [ ] Custom AI base URLs, API keys, and models supported
+
+### Custom Prompt Flexibility
+- [ ] Users can supply custom prompts for translation
+- [ ] Different prompt templates for word vs sentence contexts
+- [ ] Custom prompts validated for provider compatibility
+- [ ] Variable substitution supported in prompt templates
 
 ### Extensibility Design
 - [ ] New providers can be added without core changes
