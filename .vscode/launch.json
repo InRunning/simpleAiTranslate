@@ -1,0 +1,73 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Debug Extension (Development)",
+      "type": "chrome",
+      "request": "launch",
+      "url": "chrome://extensions/",
+      "webRoot": "${workspaceFolder}",
+      "runtimeExecutable": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+      "runtimeArgs": [
+        "--load-extension=${workspaceFolder}/build/chrome-mv3-dev",
+        "--disable-extensions-except=${workspaceFolder}/build/chrome-mv3-dev",
+        "--disable-web-security",
+        "--disable-features=TranslateUI",
+        "--disable-ipc-flooding-protection"
+      ],
+      "sourceMaps": true,
+      "preLaunchTask": "npm: dev",
+      "postDebugTask": "Terminate All Tasks"
+    },
+    {
+      "name": "Debug Extension (Production)",
+      "type": "chrome",
+      "request": "launch",
+      "url": "chrome://extensions/",
+      "webRoot": "${workspaceFolder}",
+      "runtimeExecutable": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+      "runtimeArgs": [
+        "--load-extension=${workspaceFolder}/build/chrome-mv3-prod",
+        "--disable-extensions-except=${workspaceFolder}/build/chrome-mv3-prod",
+        "--disable-web-security",
+        "--disable-features=TranslateUI",
+        "--disable-ipc-flooding-protection"
+      ],
+      "sourceMaps": true,
+      "preLaunchTask": "npm: build"
+    },
+    {
+      "name": "Debug Tests",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/node_modules/.bin/jest",
+      "args": [
+        "--runInBand",
+        "--no-cache",
+        "--no-coverage"
+      ],
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "env": {
+        "NODE_ENV": "test"
+      }
+    },
+    {
+      "name": "Debug Current Test File",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/node_modules/.bin/jest",
+      "args": [
+        "--runInBand",
+        "--no-cache",
+        "--no-coverage",
+        "${fileBasenameNoExtension}"
+      ],
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "env": {
+        "NODE_ENV": "test"
+      }
+    }
+  ]
+}

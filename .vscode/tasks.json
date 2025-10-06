@@ -1,0 +1,99 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "npm: dev",
+      "type": "npm",
+      "script": "dev",
+      "group": "build",
+      "isBackground": true,
+      "problemMatcher": {
+        "owner": "typescript",
+        "fileLocation": "relative",
+        "pattern": {
+          "regexp": "^([^\\s].*)\\((\\d+,\\d+)\\):\\s+(error|warning|info)\\s+(TS\\d+)\\s*:\\s*(.*)$",
+          "file": 1,
+          "location": 2,
+          "severity": 3,
+          "code": 4,
+          "message": 5
+        },
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": "^\\s*[0-9]{1,2}:[0-9]{1,2}:[0-9]{1,2}(?: AM| PM)?\\s*\\[ Plasmo \\]",
+          "endsPattern": "^\\s*[0-9]{1,2}:[0-9]{1,2}:[0-9]{1,2}(?: AM| PM)?\\s*\\[ Plasmo \\].* (Build complete|Watching for file changes)"
+        }
+      }
+    },
+    {
+      "label": "npm: build",
+      "type": "npm",
+      "script": "build",
+      "group": "build",
+      "problemMatcher": "$tsc"
+    },
+    {
+      "label": "npm: test",
+      "type": "npm",
+      "script": "test",
+      "group": "test",
+      "problemMatcher": "$tsc"
+    },
+    {
+      "label": "npm: test:watch",
+      "type": "npm",
+      "script": "test:watch",
+      "group": "test",
+      "isBackground": true,
+      "problemMatcher": "$tsc-watch"
+    },
+    {
+      "label": "npm: test:coverage",
+      "type": "npm",
+      "script": "test:coverage",
+      "group": "test",
+      "problemMatcher": "$tsc"
+    },
+    {
+      "label": "npm: lint",
+      "type": "npm",
+      "script": "lint",
+      "group": "test",
+      "problemMatcher": "$eslint-stylish"
+    },
+    {
+      "label": "npm: lint:fix",
+      "type": "npm",
+      "script": "lint:fix",
+      "group": "test",
+      "problemMatcher": "$eslint-stylish"
+    },
+    {
+      "label": "npm: format",
+      "type": "npm",
+      "script": "format",
+      "group": "test"
+    },
+    {
+      "label": "npm: type-check",
+      "type": "npm",
+      "script": "type-check",
+      "group": "test",
+      "problemMatcher": "$tsc"
+    },
+    {
+      "label": "Terminate All Tasks",
+      "command": "echo ${input:terminate}",
+      "type": "shell",
+      "problemMatcher": []
+    }
+  ],
+  "inputs": [
+    {
+      "id": "terminate",
+      "type": "command",
+      "command": "workbench.action.tasks.terminate",
+      "args": ["terminateAll"]
+    }
+  ]
+}
