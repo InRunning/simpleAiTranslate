@@ -49,46 +49,58 @@
 
 ## Phase 3.2: Tests First (TDD) ⚠️ MUST COMPLETE BEFORE 3.3
 **CRITICAL: These tests MUST be written and MUST FAIL before ANY implementation**
-- [ ] T004 [P] Contract test POST /api/users in tests/contract/test_users_post.py
-- [ ] T005 [P] Contract test GET /api/users/{id} in tests/contract/test_users_get.py
-- [ ] T006 [P] Integration test user registration in tests/integration/test_registration.py
-- [ ] T007 [P] Integration test auth flow in tests/integration/test_auth.py
+- [ ] T004 [P] Privacy compliance test in tests/contract/test_privacy_compliance.js
+- [ ] T005 [P] Provider interface test in tests/contract/test_provider_interface.js
+- [ ] T006 [P] Translation workflow test in tests/integration/test_translation_workflow.js
+- [ ] T007 [P] Content script isolation test in tests/integration/test_content_script_isolation.js
+- [ ] T008 [P] API key storage test in tests/unit/test_api_key_storage.js
+- [ ] T009 [P] Multi-provider switching test in tests/integration/test_provider_switching.js
 
 ## Phase 3.3: Core Implementation (ONLY after tests are failing)
-- [ ] T008 [P] User model in src/models/user.py
-- [ ] T009 [P] UserService CRUD in src/services/user_service.py
-- [ ] T010 [P] CLI --create-user in src/cli/user_commands.py
-- [ ] T011 POST /api/users endpoint
-- [ ] T012 GET /api/users/{id} endpoint
-- [ ] T013 Input validation
-- [ ] T014 Error handling and logging
+- [ ] T010 [P] Provider interface base class in src/providers/base_provider.js
+- [ ] T011 [P] OpenAI provider implementation in src/providers/openai_provider.js
+- [ ] T012 [P] Gemini provider implementation in src/providers/gemini_provider.js
+- [ ] T013 [P] Claude provider implementation in src/providers/claude_provider.js
+- [ ] T014 [P] Custom provider configuration in src/providers/custom_provider.js
+- [ ] T015 [P] Secure API key storage in src/storage/api_key_storage.js
+- [ ] T016 [P] Translation context manager in src/context/translation_context.js
+- [ ] T017 [P] Content script manager in src/content/content_manager.js
+- [ ] T018 [P] Background service worker in src/background/service_worker.js
+- [ ] T019 [P] UI components for provider selection in src/ui/provider_selection.js
+- [ ] T020 [P] Translation result display in src/ui/result_display.js
 
 ## Phase 3.4: Integration
-- [ ] T015 Connect UserService to DB
-- [ ] T016 Auth middleware
-- [ ] T017 Request/response logging
-- [ ] T018 CORS and security headers
+- [ ] T021 Connect providers to UI components
+- [ ] T022 Implement content script to background communication
+- [ ] T023 Add translation request queuing and caching
+- [ ] T024 Implement privacy controls and data clearing
+- [ ] T025 Add performance monitoring and optimization
 
 ## Phase 3.5: Polish
-- [ ] T019 [P] Unit tests for validation in tests/unit/test_validation.py
-- [ ] T020 Performance tests (<200ms)
-- [ ] T021 [P] Update docs/api.md
-- [ ] T022 Remove duplication
-- [ ] T023 Run manual-testing.md
+- [ ] T026 [P] Unit tests for all providers in tests/unit/test_providers.js
+- [ ] T027 Performance tests (<5s translation, <500ms startup)
+- [ ] T028 [P] Update docs/extension_usage.md
+- [ ] T029 Privacy audit and security review
+- [ ] T030 Chrome Web Store preparation and validation
 
 ## Dependencies
-- Tests (T004-T007) before implementation (T008-T014)
-- T008 blocks T009, T015
-- T016 blocks T018
-- Implementation before polish (T019-T023)
+- Tests (T004-T009) before implementation (T010-T020)
+- T010 blocks T011-T014
+- T015 blocks T016-T018
+- T016 blocks T021
+- T017 blocks T022
+- Implementation before integration (T021-T025)
+- Integration before polish (T026-T030)
 
 ## Parallel Example
 ```
-# Launch T004-T007 together:
-Task: "Contract test POST /api/users in tests/contract/test_users_post.py"
-Task: "Contract test GET /api/users/{id} in tests/contract/test_users_get.py"
-Task: "Integration test registration in tests/integration/test_registration.py"
-Task: "Integration test auth in tests/integration/test_auth.py"
+# Launch T004-T009 together:
+Task: "Privacy compliance test in tests/contract/test_privacy_compliance.js"
+Task: "Provider interface test in tests/contract/test_provider_interface.js"
+Task: "Translation workflow test in tests/integration/test_translation_workflow.js"
+Task: "Content script isolation test in tests/integration/test_content_script_isolation.js"
+Task: "API key storage test in tests/unit/test_api_key_storage.js"
+Task: "Multi-provider switching test in tests/integration/test_provider_switching.js"
 ```
 
 ## Notes
@@ -100,28 +112,38 @@ Task: "Integration test auth in tests/integration/test_auth.py"
 ## Task Generation Rules
 *Applied during main() execution*
 
-1. **From Contracts**:
-   - Each contract file → contract test task [P]
-   - Each endpoint → implementation task
+1. **From Privacy Requirements**:
+   - Each privacy constraint → privacy compliance test [P]
+   - Data handling requirement → secure storage task
    
-2. **From Data Model**:
-   - Each entity → model creation task [P]
-   - Relationships → service layer tasks
+2. **From Provider Requirements**:
+   - Each AI provider → provider implementation task [P]
+   - Provider interface → interface contract test [P]
    
 3. **From User Stories**:
-   - Each story → integration test [P]
+   - Each translation workflow → integration test [P]
+   - UI interaction → component test [P]
    - Quickstart scenarios → validation tasks
 
-4. **Ordering**:
-   - Setup → Tests → Models → Services → Endpoints → Polish
+4. **From Extension Constraints**:
+   - Manifest V3 requirement → service worker task
+   - Content script isolation → isolation test [P]
+   - Performance requirement → performance test
+
+5. **Ordering**:
+   - Setup → Privacy Tests → Provider Tests → Integration Tests → Provider Implementation → Integration → Polish
    - Dependencies block parallel execution
+   - Tests MUST precede implementation (TDD principle)
 
 ## Validation Checklist
 *GATE: Checked by main() before returning*
 
-- [ ] All contracts have corresponding tests
-- [ ] All entities have model tasks
-- [ ] All tests come before implementation
+- [ ] All privacy requirements have compliance tests
+- [ ] All providers have interface tests and implementation tasks
+- [ ] All tests come before implementation (TDD compliance)
 - [ ] Parallel tasks truly independent
 - [ ] Each task specifies exact file path
 - [ ] No task modifies same file as another [P] task
+- [ ] Extension-specific constraints addressed (Manifest V3, content scripts)
+- [ ] Performance requirements included in test tasks
+- [ ] Security requirements have corresponding test tasks

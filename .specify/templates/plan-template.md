@@ -47,7 +47,37 @@
 ## Constitution Check
 *GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
 
-[Gates determined based on constitution file]
+### Privacy Compliance
+- [ ] User text data handling follows privacy-first principle
+- [ ] API keys stored using Chrome's secure storage
+- [ ] No permanent data storage without explicit consent
+
+### Multi-AI Provider Support
+- [ ] Provider implementation follows modular interface
+- [ ] Standardized API across all providers
+- [ ] Independent provider configurations
+
+### Extensibility Design
+- [ ] New providers can be added without core changes
+- [ ] Plugin pattern architecture implemented
+- [ ] Dynamic configuration system in place
+
+### Test-Driven Development
+- [ ] Tests written before implementation (TDD)
+- [ ] Unit tests for all provider implementations
+- [ ] Integration tests for translation workflows
+- [ ] UI component interaction tests
+
+### Contextual Translation
+- [ ] Single word translations include context
+- [ ] Word position and context provided to AI
+- [ ] IPA pronunciation included for single words
+- [ ] Multiple AI results displayed side-by-side
+
+### Technical Constraints
+- [ ] Chrome Manifest V3 compliance
+- [ ] Performance requirements met (5s translation, 500ms startup)
+- [ ] Security standards followed (HTTPS, encrypted storage)
 
 ## Project Structure
 
@@ -216,4 +246,4 @@ directories captured above]
 - [ ] Complexity deviations documented
 
 ---
-*Based on Constitution v2.1.1 - See `/memory/constitution.md`*
+*Based on Constitution v1.0.0 - See `/memory/constitution.md`*
