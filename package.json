@@ -1,6 +1,6 @@
 {
-  "name": "simple",
-  "displayName": "Simple",
+  "name": "simple-ai-translate",
+  "displayName": "Simple AI Translate",
   "version": "0.0.1",
   "description": "A Chrome extension for selecting text to translate that combines AI",
   "author": "lin784264272@gmail.com",
@@ -25,10 +25,17 @@
   },
   "manifest": {
     "host_permissions": [
-      "https://*/*"
+      "https://*/*",
+      "https://api.openai.com/*",
+      "https://generativelanguage.googleapis.com/*",
+      "https://api.anthropic.com/*"
     ],
     "permissions": [
-      "tabs"
+      "tabs",
+      "storage",
+      "activeTab",
+      "contextMenus",
+      "scripting"
     ]
   }
 }
