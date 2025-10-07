@@ -2,7 +2,7 @@
   "name": "simple",
   "displayName": "Simple",
   "version": "0.0.1",
-  "description": "A Chrome extension for selecting text to translate that combines AI.",
+  "description": "A Chrome extension for selecting text to translate that combines AI",
   "author": "lin784264272@gmail.com",
   "scripts": {
     "dev": "plasmo dev",
@@ -26,6 +26,9 @@
   "manifest": {
     "host_permissions": [
       "https://*/*"
+    ],
+    "permissions": [
+      "tabs"
     ]
   }
 }

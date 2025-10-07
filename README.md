@@ -8,5 +8,6 @@ It should support display multiple ai result together.
 
 ## Reference
 
+[plasmo] (https://docs.plasmo.com/framework)
 [saladict](https://github.com/crimx/ext-saladict)
 [lingo-link](https://github.com/chengfengfengwang/lingo-link)
