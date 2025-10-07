@@ -61,6 +61,8 @@ export class AIServiceManager {
         return this.callOpenAI(service, prompt)
       case 'gemini':
         return this.callGemini(service, prompt)
+      case 'public-gemini':
+        return this.callPublicGemini(service, prompt)
       case 'claude':
         return this.callClaude(service, prompt)
       default:
@@ -151,6 +153,39 @@ export class AIServiceManager {
 
     if (!response.ok) {
       throw new Error(`Gemini API error: ${response.statusText}`)
+    }
+
+    const data = await response.json()
+    const content = data.candidates[0]?.content?.parts[0]?.text || ''
+    
+    return this.parseResponse(service.id, service.name, content)
+  }
+
+  /**
+   * 调用公共Gemini API进行翻译
+   * @param service 公共Gemini服务配置
+   * @param prompt 构建好的提示词
+   * @returns 翻译结果
+   */
+  private async callPublicGemini(service: AIService, prompt: string): Promise<TranslationResult> {
+    // 发送POST请求到公共Gemini服务的generateContent端点
+    const response = await fetch(`${service.baseUrl}/models/${service.model}:generateContent`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${service.apiKey}`  // 使用Bearer token认证
+      },
+      body: JSON.stringify({
+        contents: [{ parts: [{ text: prompt }] }],  // Gemini使用contents格式
+        generationConfig: {
+          temperature: 0.3,
+          maxOutputTokens: 1000
+        }
+      })
+    })
+
+    if (!response.ok) {
+      throw new Error(`公共Gemini API error: ${response.statusText}`)
     }
 
     const data = await response.json()

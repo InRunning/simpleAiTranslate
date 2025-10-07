@@ -28,7 +28,8 @@
       "https://*/*",
       "https://api.openai.com/*",
       "https://generativelanguage.googleapis.com/*",
-      "https://api.anthropic.com/*"
+      "https://api.anthropic.com/*",
+      "https://gpt-load.linstudios.top/*"
     ],
     "permissions": [
       "tabs",

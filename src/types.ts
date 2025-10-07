@@ -84,6 +84,23 @@ Please provide:
 3. Detailed meaning explanation`
   },
   {
+    id: 'public-gemini',
+    name: '公共Gemini服务',
+    baseUrl: 'https://gpt-load.linstudios.top/proxy/gemini/v1beta',
+    apiKey: 'sdk_1234_kdsfds',
+    model: 'gemini-2.5-flash',
+    enabled: false,
+    prompt: `Translate the following text and provide context:
+Text: {text}
+Context: {context}
+{additionalInstructions}
+
+Please provide:
+1. Translation
+2. IPA pronunciation (if applicable)
+3. Detailed meaning explanation`
+  },
+  {
     id: 'claude',
     name: 'Claude',
     baseUrl: 'https://api.anthropic.com/v1',
