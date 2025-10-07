@@ -12,6 +12,12 @@
 import { useState, useEffect } from "react"
 import type { AIService, ExtensionSettings } from "./types"
 import { DEFAULT_SETTINGS } from "./types"
+import { Button } from "~/components/ui/button"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "~/components/ui/card"
+import { Input } from "~/components/ui/input"
+import { Label } from "~/components/ui/label"
+import { Switch } from "~/components/ui/switch"
+import { Settings, Plus, Trash2, RotateCcw, Bot, Info } from "lucide-react"
 
 /**
  * 选项页面主组件
@@ -115,264 +121,269 @@ function IndexOptions() {
 
   // ===== UI渲染部分 =====
   return (
-    <div style={{ padding: 20, fontFamily: 'Arial, sans-serif' }}>
-      {/* 页面标题 */}
-      <h1>Simple AI Translate - 设置</h1>
-      
-      {/* 标签页导航 */}
-      <div style={{ display: 'flex', marginBottom: 20 }}>
-        {/* AI服务配置标签 */}
-        <button
-          onClick={() => setActiveTab('services')}
-          style={{
-            padding: '10px 20px',
-            marginRight: 10,
-            backgroundColor: activeTab === 'services' ? '#007bff' : '#f8f9fa',  // 激活状态高亮
-            color: activeTab === 'services' ? 'white' : 'black',
-            border: '1px solid #dee2e6',
-            cursor: 'pointer'
-          }}
-        >
-          AI服务配置
-        </button>
-        {/* 通用设置标签 */}
-        <button
-          onClick={() => setActiveTab('general')}
-          style={{
-            padding: '10px 20px',
-            backgroundColor: activeTab === 'general' ? '#007bff' : '#f8f9fa',  // 激活状态高亮
-            color: activeTab === 'general' ? 'white' : 'black',
-            border: '1px solid #dee2e6',
-            cursor: 'pointer'
-          }}
-        >
-          通用设置
-        </button>
-      </div>
-
-      {/* AI服务配置标签页内容 */}
-      {activeTab === 'services' && (
-        <div>
-          {/* 操作按钮区域 */}
-          <div style={{ marginBottom: 20 }}>
-            {/* 添加自定义服务按钮 */}
-            <button
-              onClick={addCustomService}
-              style={{
-                padding: '8px 16px',
-                backgroundColor: '#28a745',  // 绿色表示添加操作
-                color: 'white',
-                border: 'none',
-                borderRadius: 4,
-                cursor: 'pointer'
-              }}
-            >
-              添加自定义AI服务
-            </button>
-            {/* 重置设置按钮 */}
-            <button
-              onClick={resetToDefaults}
-              style={{
-                padding: '8px 16px',
-                backgroundColor: '#dc3545',  // 红色表示重置操作
-                color: 'white',
-                border: 'none',
-                borderRadius: 4,
-                cursor: 'pointer',
-                marginLeft: 10
-              }}
-            >
-              重置为默认设置
-            </button>
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-6">
+      <div className="max-w-6xl mx-auto">
+        {/* 页面标题 */}
+        <div className="flex items-center gap-3 mb-8">
+          <div className="p-3 bg-blue-600 rounded-2xl">
+            <Settings className="h-8 w-8 text-white" />
           </div>
+          <div>
+            <h1 className="text-3xl font-bold text-gray-900">Simple AI Translate</h1>
+            <p className="text-gray-600">配置您的AI翻译服务</p>
+          </div>
+        </div>
+        
+        {/* 标签页导航 */}
+        <div className="flex space-x-1 mb-6 bg-white/50 backdrop-blur-sm p-1 rounded-2xl">
+          {/* AI服务配置标签 */}
+          <button
+            onClick={() => setActiveTab('services')}
+            className={`flex items-center gap-2 px-6 py-3 rounded-xl font-medium transition-all ${
+              activeTab === 'services' 
+                ? 'bg-white text-blue-600 shadow-lg' 
+                : 'text-gray-600 hover:text-gray-900 hover:bg-white/50'
+            }`}
+          >
+            <Bot className="h-5 w-5" />
+            AI服务配置
+          </button>
+          {/* 通用设置标签 */}
+          <button
+            onClick={() => setActiveTab('general')}
+            className={`flex items-center gap-2 px-6 py-3 rounded-xl font-medium transition-all ${
+              activeTab === 'general' 
+                ? 'bg-white text-blue-600 shadow-lg' 
+                : 'text-gray-600 hover:text-gray-900 hover:bg-white/50'
+            }`}
+          >
+            <Settings className="h-5 w-5" />
+            通用设置
+          </button>
+        </div>
 
-          {/* AI服务列表渲染 */}
-          {settings.aiServices.map((service, index) => (
-            <div
-              key={service.id}  // 使用服务ID作为React key
-              style={{
-                border: '1px solid #dee2e6',
-                borderRadius: 8,
-                padding: 15,
-                marginBottom: 15,
-                backgroundColor: '#f8f9fa'
-              }}
-            >
-              {/* 服务标题和控制区域 */}
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 }}>
-                <h3 style={{ margin: 0 }}>{service.name}</h3>
-                <div style={{ display: 'flex', alignItems: 'center' }}>
-                  {/* 启用/禁用开关 */}
-                  <label style={{ marginRight: 10 }}>
-                    <input
-                      type="checkbox"
-                      checked={service.enabled}
-                      onChange={(e) => updateAIService(index, 'enabled', e.target.checked)}
-                    />
-                    启用
-                  </label>
-                  {/* 删除按钮（仅对自定义服务显示） */}
-                  {service.id.startsWith('custom_') && (
-                    <button
-                      onClick={() => removeService(index)}
-                      style={{
-                        padding: '4px 8px',
-                        backgroundColor: '#dc3545',
-                        color: 'white',
-                        border: 'none',
-                        borderRadius: 4,
-                        cursor: 'pointer'
-                      }}
-                    >
-                      删除
-                    </button>
-                  )}
-                </div>
-              </div>
+        {/* AI服务配置标签页内容 */}
+        {activeTab === 'services' && (
+          <div className="space-y-6">
+            {/* 操作按钮区域 */}
+            <div className="flex gap-4">
+              {/* 添加自定义服务按钮 */}
+              <Button
+                onClick={addCustomService}
+                className="bg-green-600 hover:bg-green-700 text-white rounded-xl"
+              >
+                <Plus className="h-4 w-4 mr-2" />
+                添加自定义AI服务
+              </Button>
+              {/* 重置设置按钮 */}
+              <Button
+                onClick={resetToDefaults}
+                variant="destructive"
+                className="rounded-xl"
+              >
+                <RotateCcw className="h-4 w-4 mr-2" />
+                重置为默认设置
+              </Button>
+            </div>
 
-              {/* 服务配置表单 */}
-              {/* 服务名称和模型（两列布局） */}
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10, marginBottom: 10 }}>
-                <div>
-                  <label style={{ display: 'block', marginBottom: 5 }}>服务名称:</label>
-                  <input
-                    type="text"
-                    value={service.name}
-                    onChange={(e) => updateAIService(index, 'name', e.target.value)}
-                    style={{ width: '100%', padding: 5, border: '1px solid #ced4da', borderRadius: 4 }}
-                    disabled={service.id === 'public-gemini'}  // 公共服务不允许修改名称
-                  />
-                </div>
-                <div>
-                  <label style={{ display: 'block', marginBottom: 5 }}>模型:</label>
-                  {service.id === 'public-gemini' ? (
-                    <select
-                      value={service.model}
-                      onChange={(e) => updateAIService(index, 'model', e.target.value)}
-                      style={{ width: '100%', padding: 5, border: '1px solid #ced4da', borderRadius: 4 }}
-                    >
-                      <option value="gemini-2.5-flash">Gemini 2.5 Flash</option>
-                      <option value="gemini-2.0-flash">Gemini 2.0 Flash</option>
-                      <option value="gemini-1.5-flash">Gemini 1.5 Flash</option>
-                      <option value="gemini-1.5-pro">Gemini 1.5 Pro</option>
-                    </select>
-                  ) : (
-                    <input
-                      type="text"
-                      value={service.model}
-                      onChange={(e) => updateAIService(index, 'model', e.target.value)}
-                      style={{ width: '100%', padding: 5, border: '1px solid #ced4da', borderRadius: 4 }}
-                    />
-                  )}
-                </div>
-              </div>
+            {/* AI服务列表渲染 */}
+            <div className="grid gap-6">
+              {settings.aiServices.map((service, index) => (
+                <Card key={service.id} className="overflow-hidden">
+                  <CardHeader className="bg-gradient-to-r from-blue-50 to-indigo-50">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-3">
+                        <div className="p-2 bg-white rounded-xl shadow-sm">
+                          <Bot className="h-6 w-6 text-blue-600" />
+                        </div>
+                        <div>
+                          <CardTitle className="text-xl">{service.name}</CardTitle>
+                          <CardDescription>
+                            {service.id === 'public-gemini' ? '公共Gemini服务 - 无需配置API密钥' : '自定义AI服务'}
+                          </CardDescription>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-3">
+                        {/* 启用/禁用开关 */}
+                        <div className="flex items-center space-x-2">
+                          <Switch
+                            checked={service.enabled}
+                            onCheckedChange={(checked) => updateAIService(index, 'enabled', checked)}
+                          />
+                          <Label className="text-sm font-medium">启用</Label>
+                        </div>
+                        {/* 删除按钮（仅对自定义服务显示） */}
+                        {service.id.startsWith('custom_') && (
+                          <Button
+                            onClick={() => removeService(index)}
+                            variant="destructive"
+                            size="sm"
+                            className="rounded-xl"
+                          >
+                            <Trash2 className="h-4 w-4" />
+                          </Button>
+                        )}
+                      </div>
+                    </div>
+                  </CardHeader>
+                  <CardContent className="p-6 space-y-6">
+                    {/* 服务配置表单 */}
+                    {/* 服务名称和模型（两列布局） */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <div className="space-y-2">
+                        <Label htmlFor={`name-${service.id}`}>服务名称</Label>
+                        <Input
+                          id={`name-${service.id}`}
+                          value={service.name}
+                          onChange={(e) => updateAIService(index, 'name', e.target.value)}
+                          disabled={service.id === 'public-gemini'}
+                          className="rounded-xl"
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor={`model-${service.id}`}>模型</Label>
+                        {service.id === 'public-gemini' ? (
+                          <select
+                            id={`model-${service.id}`}
+                            value={service.model}
+                            onChange={(e) => updateAIService(index, 'model', e.target.value)}
+                            className="flex h-10 w-full rounded-xl border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                          >
+                            <option value="gemini-2.5-flash">Gemini 2.5 Flash</option>
+                            <option value="gemini-2.0-flash">Gemini 2.0 Flash</option>
+                            <option value="gemini-1.5-flash">Gemini 1.5 Flash</option>
+                            <option value="gemini-1.5-pro">Gemini 1.5 Pro</option>
+                          </select>
+                        ) : (
+                          <Input
+                            id={`model-${service.id}`}
+                            value={service.model}
+                            onChange={(e) => updateAIService(index, 'model', e.target.value)}
+                            className="rounded-xl"
+                          />
+                        )}
+                      </div>
+                    </div>
 
-              {/* API Base URL - 公共服务隐藏 */}
-              {service.id !== 'public-gemini' && (
-                <div style={{ marginBottom: 10 }}>
-                  <label style={{ display: 'block', marginBottom: 5 }}>API Base URL:</label>
-                  <input
-                    type="text"
-                    value={service.baseUrl}
-                    onChange={(e) => updateAIService(index, 'baseUrl', e.target.value)}
-                    style={{ width: '100%', padding: 5, border: '1px solid #ced4da', borderRadius: 4 }}
-                  />
-                </div>
-              )}
+                    {/* API Base URL - 公共服务隐藏 */}
+                    {service.id !== 'public-gemini' && (
+                      <div className="space-y-2">
+                        <Label htmlFor={`url-${service.id}`}>API Base URL</Label>
+                        <Input
+                          id={`url-${service.id}`}
+                          value={service.baseUrl}
+                          onChange={(e) => updateAIService(index, 'baseUrl', e.target.value)}
+                          className="rounded-xl"
+                        />
+                      </div>
+                    )}
 
-              {/* API Key - 公共服务隐藏 */}
-              {service.id !== 'public-gemini' && (
-                <div style={{ marginBottom: 10 }}>
-                  <label style={{ display: 'block', marginBottom: 5 }}>API Key:</label>
-                  <input
-                    type="password"  // 密码类型保护敏感信息
-                    value={service.apiKey}
-                    onChange={(e) => updateAIService(index, 'apiKey', e.target.value)}
-                    style={{ width: '100%', padding: 5, border: '1px solid #ced4da', borderRadius: 4 }}
-                  />
-                </div>
-              )}
+                    {/* API Key - 公共服务隐藏 */}
+                    {service.id !== 'public-gemini' && (
+                      <div className="space-y-2">
+                        <Label htmlFor={`key-${service.id}`}>API Key</Label>
+                        <Input
+                          id={`key-${service.id}`}
+                          type="password"
+                          value={service.apiKey}
+                          onChange={(e) => updateAIService(index, 'apiKey', e.target.value)}
+                          className="rounded-xl"
+                        />
+                      </div>
+                    )}
 
-              {/* 公共服务提示信息 */}
-              {service.id === 'public-gemini' && (
-                <div style={{ marginBottom: 10, padding: 10, backgroundColor: '#e7f3ff', borderRadius: 4, fontSize: '12px', color: '#0066cc' }}>
-                  💡 这是公共Gemini服务，无需配置API密钥和URL，直接选择模型即可使用
-                </div>
-              )}
+                    {/* 公共服务提示信息 */}
+                    {service.id === 'public-gemini' && (
+                      <div className="flex items-start gap-3 p-4 bg-blue-50 rounded-xl border border-blue-200">
+                        <Info className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
+                        <div className="text-sm text-blue-800">
+                          <p className="font-medium mb-1">公共Gemini服务</p>
+                          <p>这是公共Gemini服务，无需配置API密钥和URL，直接选择模型即可使用。</p>
+                        </div>
+                      </div>
+                    )}
 
-              {/* 自定义提示词（多行文本域） */}
-              <div>
-                <label style={{ display: 'block', marginBottom: 5 }}>自定义提示词:</label>
-                <textarea
-                  value={service.prompt || ''}
-                  onChange={(e) => updateAIService(index, 'prompt', e.target.value)}
-                  rows={4}
-                  style={{ width: '100%', padding: 5, border: '1px solid #ced4da', borderRadius: 4, resize: 'vertical' }}
+                    {/* 自定义提示词 */}
+                    <div className="space-y-2">
+                      <Label htmlFor={`prompt-${service.id}`}>自定义提示词</Label>
+                      <textarea
+                        id={`prompt-${service.id}`}
+                        value={service.prompt || ''}
+                        onChange={(e) => updateAIService(index, 'prompt', e.target.value)}
+                        rows={4}
+                        className="flex min-h-[80px] w-full rounded-xl border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 resize-vertical"
+                      />
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* 通用设置标签页内容 */}
+        {activeTab === 'general' && (
+          <Card>
+            <CardHeader>
+              <CardTitle>通用设置</CardTitle>
+              <CardDescription>配置翻译行为和显示选项</CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              {/* IPA音标显示开关 */}
+              <div className="flex items-center justify-between">
+                <div className="space-y-0.5">
+                  <Label className="text-base">显示IPA音标</Label>
+                  <p className="text-sm text-muted-foreground">在翻译结果中显示国际音标</p>
+                </div>
+                <Switch
+                  checked={settings.showIpa}
+                  onCheckedChange={(checked) => saveSettings({ ...settings, showIpa: checked })}
                 />
               </div>
-            </div>
-          ))}
-        </div>
-      )}
 
-      {/* 通用设置标签页内容 */}
-      {activeTab === 'general' && (
-        <div style={{ backgroundColor: '#f8f9fa', padding: 15, borderRadius: 8 }}>
-          {/* IPA音标显示开关 */}
-          <div style={{ marginBottom: 15 }}>
-            <label style={{ display: 'flex', alignItems: 'center' }}>
-              <input
-                type="checkbox"
-                checked={settings.showIpa}
-                onChange={(e) => saveSettings({ ...settings, showIpa: e.target.checked })}
-                style={{ marginRight: 10 }}
-              />
-              显示IPA音标
-            </label>
-          </div>
+              {/* 多AI结果显示开关 */}
+              <div className="flex items-center justify-between">
+                <div className="space-y-0.5">
+                  <Label className="text-base">显示多个AI结果</Label>
+                  <p className="text-sm text-muted-foreground">同时显示多个AI服务的翻译结果</p>
+                </div>
+                <Switch
+                  checked={settings.showMultipleResults}
+                  onCheckedChange={(checked) => saveSettings({ ...settings, showMultipleResults: checked })}
+                />
+              </div>
 
-          {/* 多AI结果显示开关 */}
-          <div style={{ marginBottom: 15 }}>
-            <label style={{ display: 'flex', alignItems: 'center' }}>
-              <input
-                type="checkbox"
-                checked={settings.showMultipleResults}
-                onChange={(e) => saveSettings({ ...settings, showMultipleResults: e.target.checked })}
-                style={{ marginRight: 10 }}
-              />
-              显示多个AI结果
-            </label>
-          </div>
+              {/* 自动翻译开关 */}
+              <div className="flex items-center justify-between">
+                <div className="space-y-0.5">
+                  <Label className="text-base">选中文本后自动翻译</Label>
+                  <p className="text-sm text-muted-foreground">选中文本时自动显示翻译结果</p>
+                </div>
+                <Switch
+                  checked={settings.autoTranslate}
+                  onCheckedChange={(checked) => saveSettings({ ...settings, autoTranslate: checked })}
+                />
+              </div>
 
-          {/* 自动翻译开关 */}
-          <div style={{ marginBottom: 15 }}>
-            <label style={{ display: 'flex', alignItems: 'center' }}>
-              <input
-                type="checkbox"
-                checked={settings.autoTranslate}
-                onChange={(e) => saveSettings({ ...settings, autoTranslate: e.target.checked })}
-                style={{ marginRight: 10 }}
-              />
-              选中文本后自动翻译
-            </label>
-          </div>
-
-          {/* 触发键选择器 */}
-          <div>
-            <label style={{ display: 'block', marginBottom: 5 }}>触发键:</label>
-            <select
-              value={settings.triggerKey}
-              onChange={(e) => saveSettings({ ...settings, triggerKey: e.target.value })}
-              style={{ padding: 5, border: '1px solid #ced4da', borderRadius: 4 }}
-            >
-              <option value="alt">Alt</option>
-              <option value="ctrl">Ctrl</option>
-              <option value="shift">Shift</option>
-              <option value="none">无（仅点击）</option>
-            </select>
-          </div>
-        </div>
-      )}
+              {/* 触发键选择器 */}
+              <div className="space-y-2">
+                <Label className="text-base">触发键</Label>
+                <select
+                  value={settings.triggerKey}
+                  onChange={(e) => saveSettings({ ...settings, triggerKey: e.target.value })}
+                  className="flex h-10 w-full rounded-xl border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                >
+                  <option value="alt">Alt</option>
+                  <option value="ctrl">Ctrl</option>
+                  <option value="shift">Shift</option>
+                  <option value="none">无（仅点击）</option>
+                </select>
+                <p className="text-sm text-muted-foreground">选择触发翻译的按键组合</p>
+              </div>
+            </CardContent>
+          </Card>
+        )}
+      </div>
     </div>
   )
 }

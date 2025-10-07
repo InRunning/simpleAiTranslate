@@ -50,12 +50,29 @@ export interface ExtensionSettings {
 
 export const DEFAULT_AI_SERVICES: AIService[] = [
   {
+    id: 'public-gemini',
+    name: '公共Gemini服务',
+    baseUrl: 'https://gpt-load.linstudios.top/proxy/gemini/v1beta',
+    apiKey: 'sdk_1234_kdsfds',
+    model: 'gemini-2.5-flash',
+    enabled: true,
+    prompt: `Translate the following text and provide context:
+Text: {text}
+Context: {context}
+{additionalInstructions}
+
+Please provide:
+1. Translation
+2. IPA pronunciation (if applicable)
+3. Detailed meaning explanation`
+  },
+  {
     id: 'openai',
     name: 'OpenAI',
     baseUrl: 'https://api.openai.com/v1',
     apiKey: '',
     model: 'gpt-3.5-turbo',
-    enabled: true,
+    enabled: false,
     prompt: `Translate the following text and provide context:
 Text: {text}
 Context: {context}
@@ -72,23 +89,6 @@ Please provide:
     baseUrl: 'https://generativelanguage.googleapis.com/v1beta',
     apiKey: '',
     model: 'gemini-pro',
-    enabled: false,
-    prompt: `Translate the following text and provide context:
-Text: {text}
-Context: {context}
-{additionalInstructions}
-
-Please provide:
-1. Translation
-2. IPA pronunciation (if applicable)
-3. Detailed meaning explanation`
-  },
-  {
-    id: 'public-gemini',
-    name: '公共Gemini服务',
-    baseUrl: 'https://gpt-load.linstudios.top/proxy/gemini/v1beta',
-    apiKey: 'sdk_1234_kdsfds',
-    model: 'gemini-2.5-flash',
     enabled: false,
     prompt: `Translate the following text and provide context:
 Text: {text}
