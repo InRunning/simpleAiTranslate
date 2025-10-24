@@ -95,7 +95,7 @@ function ContentApp() {
       }
     }
 
-    const onMessage = (message: any) => {
+    const onMessage = (message: any, sender: any, sendResponse: any) => {
       if (message?.type === 'TRANSLATE_SELECTION') {
         const txt = String(message.text || '').trim()
         if (!txt) return
