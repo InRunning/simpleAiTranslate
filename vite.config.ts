@@ -1,6 +1,5 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
-import { resolve } from 'path'
 
 // Vite 多入口构建：popup/options HTML 页面 + background/content 脚本
 export default defineConfig(({ mode }) => ({
@@ -8,7 +7,7 @@ export default defineConfig(({ mode }) => ({
   publicDir: 'public',
   resolve: {
     alias: {
-      '@': resolve(__dirname, 'src')
+      '@': '/src'
     }
   },
   build: {
@@ -18,10 +17,10 @@ export default defineConfig(({ mode }) => ({
     target: 'chrome110',
     rollupOptions: {
       input: {
-        popup: resolve(__dirname, 'src/popup/index.html'),
-        options: resolve(__dirname, 'src/options/index.html'),
-        background: resolve(__dirname, 'src/background/index.ts'),
-        content: resolve(__dirname, 'src/content/index.tsx')
+        popup: '/src/popup/index.html',
+        options: '/src/options/index.html',
+        background: '/src/background/index.ts',
+        content: '/src/content/index.tsx'
       },
       output: {
         entryFileNames: (assetInfo) => {
@@ -35,4 +34,3 @@ export default defineConfig(({ mode }) => ({
     }
   }
 }))
-
