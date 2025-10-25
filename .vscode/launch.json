@@ -1,0 +1,104 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "调试扩展 - 弹出窗口",
+      "type": "chrome",
+      "request": "launch",
+      "runtimeExecutable": "chrome",
+      "runtimeArgs": [
+        "--load-extension=${workspaceFolder}/dist",
+        "--disable-extensions-except=${workspaceFolder}/dist",
+        "--enable-automation"
+      ],
+      "url": "chrome-extension://*/popup.html",
+      "preLaunchTask": "npm: dev",
+      "sourceMaps": true,
+      "webRoot": "${workspaceFolder}/src",
+      "sourceMapPathOverrides": {
+        "webpack:///./*": "${workspaceFolder}/src/*",
+        "webpack:///src/*": "${workspaceFolder}/src/*"
+      },
+      "pathMappings": [
+        {
+          "url": "webpack:///src",
+          "path": "${workspaceFolder}/src"
+        }
+      ],
+      "env": {
+        "NODE_ENV": "development"
+      }
+    },
+    {
+      "name": "调试扩展 - 选项页面",
+      "type": "chrome",
+      "request": "launch",
+      "runtimeExecutable": "chrome",
+      "runtimeArgs": [
+        "--load-extension=${workspaceFolder}/dist",
+        "--disable-extensions-except=${workspaceFolder}/dist",
+        "--enable-automation"
+      ],
+      "url": "chrome-extension://*/options.html",
+      "preLaunchTask": "npm: dev",
+      "sourceMaps": true,
+      "webRoot": "${workspaceFolder}/src",
+      "sourceMapPathOverrides": {
+        "webpack:///./*": "${workspaceFolder}/src/*",
+        "webpack:///src/*": "${workspaceFolder}/src/*"
+      }
+    },
+    {
+      "name": "调试扩展 - 后台脚本",
+      "type": "chrome",
+      "request": "launch",
+      "runtimeExecutable": "chrome",
+      "runtimeArgs": [
+        "--load-extension=${workspaceFolder}/dist",
+        "--disable-extensions-except=${workspaceFolder}/dist",
+        "--enable-automation"
+      ],
+      "preLaunchTask": "npm: dev",
+      "sourceMaps": true,
+      "sourceMapPathOverrides": {
+        "webpack:///./*": "${workspaceFolder}/src/*",
+        "webpack:///src/*": "${workspaceFolder}/src/*"
+      },
+      "env": {
+        "NODE_ENV": "development"
+      },
+      "type": "node"
+    },
+    {
+      "name": "调试扩展 - 内容脚本",
+      "type": "chrome",
+      "request": "launch",
+      "runtimeExecutable": "chrome",
+      "runtimeArgs": [
+        "--load-extension=${workspaceFolder}/dist",
+        "--disable-extensions-except=${workspaceFolder}/dist",
+        "--enable-automation",
+        "https://example.com"
+      ],
+      "preLaunchTask": "npm: dev",
+      "sourceMaps": true,
+      "webRoot": "${workspaceFolder}/src",
+      "sourceMapPathOverrides": {
+        "webpack:///./*": "${workspaceFolder}/src/*",
+        "webpack:///src/*": "${workspaceFolder}/src/*"
+      }
+    },
+    {
+      "name": "附加到 Chrome 扩展",
+      "type": "chrome",
+      "request": "attach",
+      "port": 9222,
+      "sourceMaps": true,
+      "webRoot": "${workspaceFolder}/src",
+      "sourceMapPathOverrides": {
+        "webpack:///./*": "${workspaceFolder}/src/*",
+        "webpack:///src/*": "${workspaceFolder}/src/*"
+      }
+    }
+  ]
+}
