@@ -1,5 +1,2 @@
 编写代码时要加上必要的注释来阐释说明
 这个项目是一个 chrome 划词翻译扩展，使用技术栈 react + shadcn + tailwindcss + vite
-
-执行任务完成后执行下面的命令发送通知
-terminal-notifier -title "Roo Code" -message "任务完成 ✅"
